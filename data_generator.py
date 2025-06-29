@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import random
 
-def generate_sample_data(num_segments=20, base_date=None):
+def generate_sample_data(num_segments=29, base_date= None):
     """
     Generate realistic sample data for fiber construction segments.
     
@@ -25,7 +25,7 @@ def generate_sample_data(num_segments=20, base_date=None):
     segment_names = [f"Segment_{i:02d}" for i in range(1, num_segments + 1)]
     
     # Generate realistic parameters
-    miles = np.random.uniform(5, 50, num_segments).round(1)
+    miles = np.random.uniform(0.05, 50, num_segments).round(1)
     cost_per_mile = np.random.uniform(8000, 25000, num_segments).round(0)
     segment_cost = (miles * cost_per_mile).round(0)
     

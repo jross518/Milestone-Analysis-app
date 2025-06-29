@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from data_generator import load_sample_data
 from sequencing_logic import FiberSequencer
+from visualizations import create_kpi_cards, create_cumulative_progress_chart, create_cost_efficiency_chart, create_monthly_installation_chart, create_gantt_chart, create_daily_production_chart
+
 
 def milestone_metrics(schedule_df, milestone_fraction):
     """
@@ -55,4 +57,26 @@ pro_con_df = pd.DataFrame([
 ], columns=["Metric","Advantage","Trade-off"])
 st.table(pro_con_df)
 
-# — then continue with your sliders, KPIs, charts, etc. —
+# --- VISUALIZATIONS ---
+# KPI Cards
+create_kpi_cards(sched_sd)
+
+# Cumulative Progress Chart
+st.markdown('### Cumulative Progress')
+create_cumulative_progress_chart(sched_sd)
+
+# Cost Efficiency Chart
+st.markdown('### Cost Efficiency')
+create_cost_efficiency_chart(sched_sd)
+
+# Monthly Installation Chart
+st.markdown('### Monthly Installation')
+create_monthly_installation_chart(sched_sd)
+
+# Gantt Chart
+st.markdown('### Gantt Chart')
+create_gantt_chart(sched_sd)
+
+# Daily Production Chart
+st.markdown('### Daily Production')
+create_daily_production_chart(sched_sd)
