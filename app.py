@@ -7,10 +7,15 @@ def milestone_metrics(schedule_df, milestone_fraction):
     """
     Returns (days_to_milestone, cost_at_milestone, milestone_date, milestone_row)
     for a given schedule DataFrame and milestone fraction (e.g., 0.5 for 50%).
+    Handles cases where the milestone is not exactly reached by using the last row.
     """
     total_miles = schedule_df['Miles'].sum()
     milestone_miles = total_miles * milestone_fraction
-    milestone_row = schedule_df[schedule_df['Cumulative_Miles'] >= milestone_miles].iloc[0]
+    filtered = schedule_df[schedule_df['Cumulative_Miles'] >= milestone_miles]
+    if not filtered.empty:
+        milestone_row = filtered.iloc[0]
+    else:
+        milestone_row = schedule_df.iloc[-1]  # fallback to last row
     milestone_date = milestone_row['Actual_End']
     days_to_milestone = (milestone_date - schedule_df['Actual_Start'].min()).days
     cost_at_milestone = milestone_row['Cumulative_Cost']
