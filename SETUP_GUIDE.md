@@ -134,6 +134,25 @@ The app includes realistic sample data with:
    - Use the sidebar to adjust parameters
    - Explore different visualization tabs
 
+## Running the Streamlit App in Remote/Container Environments
+
+If you see a warning like:
+
+    Warning: to view this Streamlit app on a browser, run it with the following command:
+
+This is normal when running Streamlit in a remote, container, or cloud environment (such as GitHub Codespaces or VS Code Dev Containers). The app cannot open a browser window automatically.
+
+**What to do:**
+1. Copy the URL shown in the terminal (it will look like `http://127.0.0.1:8501` or similar).
+2. Paste it into your local browser. If using a remote environment, you may need to use the forwarded port or the provided preview link.
+3. Optionally, you can run Streamlit with:
+   ```bash
+   streamlit run app.py --server.address=0.0.0.0 --server.port=8501
+   ```
+   and use the appropriate URL for your environment.
+
+This warning is harmless and does not affect app functionality.
+
 ## 🔍 Troubleshooting
 
 ### Common Issues
