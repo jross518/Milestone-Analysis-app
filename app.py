@@ -1,5 +1,20 @@
 import streamlit as st
+import pandas as pd
+
 # … your existing imports and load_data/simulation code …
+
+def milestone_metrics(schedule_df, milestone_fraction):
+    """
+    Returns (days_to_milestone, cost_at_milestone, milestone_date, milestone_row)
+    for a given schedule DataFrame and milestone fraction (e.g., 0.5 for 50%).
+    """
+    total_miles = schedule_df['Miles'].sum()
+    milestone_miles = total_miles * milestone_fraction
+    milestone_row = schedule_df[schedule_df['Cumulative_Miles'] >= milestone_miles].iloc[0]
+    milestone_date = milestone_row['Actual_End']
+    days_to_milestone = (milestone_date - schedule_df['Actual_Start'].min()).days
+    cost_at_milestone = milestone_row['Cumulative_Cost']
+    return days_to_milestone, cost_at_milestone, milestone_date, milestone_row
 
 # --- UI ---
 st.set_page_config(layout="wide", page_title="Fiber Sequencing Comparison")
