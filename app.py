@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-
-# … your existing imports and load_data/simulation code …
+from data_generator import load_sample_data
+from sequencing_logic import FiberSequencer
 
 def milestone_metrics(schedule_df, milestone_fraction):
     """
@@ -15,6 +15,11 @@ def milestone_metrics(schedule_df, milestone_fraction):
     days_to_milestone = (milestone_date - schedule_df['Actual_Start'].min()).days
     cost_at_milestone = milestone_row['Cumulative_Cost']
     return days_to_milestone, cost_at_milestone, milestone_date, milestone_row
+
+# --- DATA LOADING & SCHEDULING ---
+data = load_sample_data()
+sequencer = FiberSequencer(data)
+sched_sd = sequencer.sequence_by_start_date()
 
 # --- UI ---
 st.set_page_config(layout="wide", page_title="Fiber Sequencing Comparison")
